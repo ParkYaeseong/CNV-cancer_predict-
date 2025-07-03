@@ -70,7 +70,8 @@ CNV-cancer_predict/
 
 4.  **피벗 테이블 생성**
     * 환자(ID)를 행으로, 염색체 구간(Chromosome_segment)을 열로 하는 피벗 테이블을 생성합니다.
-    * 이를 통해 각 환자별로 모든 염색체 구간의 CNV 값을 특징(feature)으로 갖는 데이터를 구성합니다.
+    * 이를 통해 각 환자별로 모든 염색체 구간의 CNV 값을 특징(feature)으로 갖는 데이터를 구성합니다.  아래는 정상군과 암환자군 데이터의 분포 차이를 시각화한 결과입니다.
+    ![정상-암 데이터 분포 차이](image/Distribution of segment_mean Difference(cancer - normal).png)
 
 ### 3.3. 모델 학습 및 평가
 
@@ -96,13 +97,16 @@ CNV-cancer_predict/
 
 4.  **모델 평가 및 결과 저장**
     * 테스트 데이터에 대한 각 모델의 성능을 평가하고, Classification Report, Confusion Matrix, ROC-AUC, Precision-Recall Curve 등 다양한 지표를 통해 결과를 확인합니다.
-    * 학습된 최적의 모델은 `joblib`을 사용하여 `.pkl` 파일 형태로 저장됩니다.
+    * 학습된 최적의 모델은 `joblib`을 사용하여 `.pkl` 파일 형태로 저장됩니다. 아래는 최종 모델의 ROC 커브와 Precision-Recall 커브입니다.
+    ![ROC and PRC Curves](image/cnv_ROC, PRC.png)
 
 ### 3.4. 특징 분석 및 시각화
 
 1.  **특징 중요도 분석 (`특징추출.py`, `특징 시각화.py`)**
     * Random Forest 모델의 `feature_importances_` 속성을 이용하여 암 예측에 중요한 영향을 미치는 염색체 구간(특징)을 식별합니다.
     * 중요도가 높은 상위 특징들을 막대그래프로 시각화하여 어떤 유전적 위치의 변이가 암과 관련이 깊은지 분석합니다.
+
+    ![상위 20개 중요 변수](images/중요변수 20개.png)
 
 2.  **UMAP 시각화 (`cnv_plot.py`)**
     * 고차원 특징 공간을 2차원 또는 3차원으로 축소하여 시각화하는 UMAP(Uniform Manifold Approximation and Projection)을 사용합니다.
